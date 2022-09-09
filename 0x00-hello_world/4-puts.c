@@ -2,7 +2,7 @@
 
 /**
  *main - Entry point
- *Description - sing the put function
+ *Description -using the put function
  *this program prints'Programming is like building a multilingual puzzle'
  *Return:0
  */
