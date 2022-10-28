@@ -1,48 +1,78 @@
-#include "holberton.h"
-#include <stdlib.h>
-#include <stdio.h>
+#include "main.h"
 
 /**
- * _strlen - find the length of a string
- * @s: pointer to the string to check
- * Return: void
+ * _atoi - converts chars to integer
+ *
+ * @c: char to convert
+ *
+ * Return: converted integer
 */
-
-
-int _strlen(const char *s)
+unsigned int _atoi(char c)
 {
-int i = 0;
-while (s[i])
-	i++;
-
-return (i);
+	return ((unsigned int) c - '0');
 }
 
+/**
+ * _strlen - gets the length of a string
+ *
+ * @str: string input
+ *
+ * Return: string length
+*/
+unsigned int _strlen(const char *str)
+{
+	unsigned int index = 0;
+
+	while (str[index] != '\0')
+		index++;
+	return (index);
+}
 
 /**
- * binary_to_uint - converts a binary number to an unsigned int
- * @b: binary number
+ * binary_to_uint - a function that converts a binary number
+ *                  to an unsigned int
  *
- * Return: 0 or converted number
- */
-
+ * @b: string that contains 0 and 1 characters
+ *
+ * Return: the number converted or 0
+ *         if @b contains a character
+ *         that is not 0 or 1 or when
+ *         @b is null
+*/
 unsigned int binary_to_uint(const char *b)
 {
-	unsigned int n = 0;
-	int i, len;
+	int index;
+	unsigned int result = 0, base2 = 1,  num = 0;
 
+	/*if b is NULL return 0*/
 	if (b == NULL)
 		return (0);
 
-	len = _strlen(b);
+	#ifdef DEBUG /*print debug statement*/
+	printf("String is %s, and length is %u.\n", b, _strlen(b));
+	#endif
 
-	for (i = 0; i != len; i++)
+	/*iterate through string*/
+	for (index = _strlen(b) - 1; index >= 0; index--)
 	{
-		if (b[len - i - 1] == '1')
-			n += 1 << i;
-		else if (b[len - i - 1] != '0')
+		num = _atoi(b[index]); /*convert char to number*/
+
+		#ifdef DEBUG /*print debug statements*/
+		printf("Number is %u, index is %i and base is %u.\n\n", num, index, base2);
+		#endif
+
+		/*if number is not 0 or 1 return 0*/
+		if (num != 0 && num != 1)
 			return (0);
+
+		result += num * base2; /*enable debug to see it in action*/
+		base2 *= 2;
+
+		#ifdef DEBUG /*print debug statements*/
+		printf("Result is %u.\n", result);
+		#endif
 	}
 
-	return (n);
+	return (result);
+
 }
